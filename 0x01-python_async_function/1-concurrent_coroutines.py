@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 '''async function to run another aysyn function'''
 import asyncio
-import random
 from 0-basic_async_syntax import wait_random
+import random
 
 
 async def wait_n(n, max_delay):
