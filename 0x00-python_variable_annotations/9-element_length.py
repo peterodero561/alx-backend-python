@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''Annotate to and return values with the appropriate types'''
-from typing import Tuple, Iterable, Sequence
+from typing import Tuple, Iterable, Sequence, List
 
 
 def element_length(lst: Iterable[Sequence])-> List[Tuple[Sequence, int]]:
