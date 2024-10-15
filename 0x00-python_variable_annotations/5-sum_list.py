@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''Function to sum up a list'''
-from typing import LIST
+from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
