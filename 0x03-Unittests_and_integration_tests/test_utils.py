@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import patch, Mock
 from typing import Any, Mapping, Sequence, Tuple, Dict
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from parameterized import parameterized
 
 
@@ -56,3 +56,32 @@ class TestGetJson(unittest.TestCase):
 
             # Reset the mock for the next iteration
             mock_get.reset_mock()
+
+
+class TestMemoize(unittest.TestCase):
+    def test_memoize(self) -> None:
+        """Test that memoize calls the method only once and caches
+        the result."""
+        # Define a test class that uses the memoize decorator
+        class TestClass:
+            def a_method(self) -> int:
+                return 42
+
+            @memoize
+            def a_property(self) -> int:
+                return self.a_method()
+        # Create an instance of TestClass
+        test_instance = TestClass()
+        # Patch 'a_method' to track its call count
+        with patch.object(
+                test_instance,
+                'a_method',
+                return_value=42) as mock_method:
+            # Access 'a_property' twice and verify results
+            result1 = test_instance.a_property
+            result2 = test_instance.a_property
+            # Assert that a_method was called only once
+            mock_method.assert_called_once()
+            # Check that both calls
+            self.assertEqual(result1, 42)
+            self.assertEqual(result2, 42)
