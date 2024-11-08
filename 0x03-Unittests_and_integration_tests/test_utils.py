@@ -107,3 +107,7 @@ class TestGithubOrgClient(unittest.TestCase):
                 f"https://api.github.com/orgs/{org_name}")
         # Assert the org method returns the expected value
         self.assertEqual(result, expected)
+
+
+if __name__ == "__main__":
+    unittest.main()
