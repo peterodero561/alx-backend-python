@@ -18,5 +18,18 @@ class TestAccessNestedMap(unittest.TestCase):
             nested_map: Mapping[str, Any],
             path: Sequence[str],
             expected: Any) -> None:
-        '''Tests that the method returns what is supposed to'''
+        '''Tests access_nested_map with nested_map and path'''
         self.assertEqual(access_nested_map(nested_map, path), expected)
+
+    @parameterized.expand([
+        ({}, ("a",)),
+        ({"a": 1}, ("a", "b")),
+        ])
+    def test_access_nested_map_exception(
+            self,
+            nested_map: Mapping[str, Any],
+            path: Sequence[str]) -> None:
+        '''Test access_nested_map raises with invalid path'''
+        with self.assertRaises(KeyError) as cm:
+            access_nested_map(nested_map, path)
+        self.assertEqual(str(cm.exception), f"'{path[-1]}'")
